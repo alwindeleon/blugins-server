@@ -15,11 +15,11 @@ var Task = require('./models/task');
 app.use(cookieParser('55555'));
 app.use(expressSession({secret:'55555'}));
 
-// mongoose.connect(dbpath);
-// var db = mongoose.connection;
-// db.on('error', function () {
-//   throw new Error('unable to connect to database at ' + dbpath);
-// });//
+mongoose.connect(dbpath);
+var db = mongoose.connection;
+db.on('error', function () {
+  throw new Error('unable to connect to database at ' + dbpath);
+});//
 
 // helper functions
 function getClient(query, clients){
