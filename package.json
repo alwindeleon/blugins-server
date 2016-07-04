@@ -1,0 +1,22 @@
+{
+  "name": "blugins",
+  "version": "0.0.0",
+  "description": "An api and website for my projects(plugins) ",
+  "main": "server.js",
+  "repository": "",
+  "author": "Alwin de Leon",
+  "dependencies": {
+    "async": "~0.2.8",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^3.2.6",
+    "express-session": "^1.13.0",
+    "jade": "^1.11.0",
+    "mongoose": "^4.5.2",
+    "path": "^0.12.7",
+    "socket.io": "~0.9.14"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

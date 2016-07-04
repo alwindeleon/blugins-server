@@ -1,0 +1,25 @@
+html
+    head
+        link(rel="stylesheet",type="text/css",href="./css/bootstrap.min.css")
+        link(rel="stylesheet",type="text/css",href="./css/login.css")
+        script(src='https://code.jquery.com/jquery-2.2.4.min.js')
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
+    body
+        .row.push-up
+            .col-lg-4.col-lg-offset-4
+                .row
+                    .col-lg-12
+                        form.form-horizontal
+                              fieldset
+                                legend Manager's Login
+                                .form-group
+                                  label.col-lg-2.control-label(for='inputEmail') Email
+                                  .col-lg-10
+                                    input#inputEmail.form-control(type='text', placeholder='Email')
+                                .form-group
+                                  label.col-lg-2.control-label(for='inputPassword') Password
+                                  .col-lg-10
+                                    input#inputPassword.form-control(type='password', placeholder='Password')
+                                .form-group
+                                  .col-lg-10.col-lg-offset-2
+                                    button.btn.btn-primary(type='submit') Login
