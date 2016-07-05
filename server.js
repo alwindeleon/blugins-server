@@ -82,7 +82,6 @@ for( var i = 0; i < sheets.length ; i++){
     }
   });
 }
-console.log(clients);
 
 
 
@@ -143,7 +142,7 @@ app.post('/upload', function(req, res) {
 		res.send('No files were uploaded.');
 		return;
 	}
- 
+  clients = []
 	sampleFile = req.files.sampleFile;
 	sampleFile.mv('./SPP_NOTES.xlsx', function(err) {
 		if (err) {
@@ -160,7 +159,7 @@ app.post('/upload', function(req, res) {
             console.error(err);
           }else {
             console.log(result);
-            clients.concat(result);
+            clients = clients.concat(result);
           }
         });
       }
