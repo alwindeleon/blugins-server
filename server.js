@@ -10,26 +10,27 @@ var cookieParser = require("cookie-parser");
 var expressSession = require("express-session");
 var Member = require('./models/member');
 var Task = require('./models/task');
+var xlsxj = require("xlsx-to-json");
+var fileUpload = require('express-fileupload');
 
 
 app.use(cookieParser('55555'));
 app.use(expressSession({secret:'55555'}));
-
-mongoose.connect(dbpath);
-var db = mongoose.connection;
-db.on('error', function () {
-  throw new Error('unable to connect to database at ' + dbpath);
-});//
+app.use(fileUpload());
+// mongoose.connect(dbpath);
+// var db = mongoose.connection;
+// db.on('error', function () {
+//   throw new Error('unable to connect to database at ' + dbpath);
+// });//
 
 // helper functions
 function getClient(query, clients){
-  console.log(query);
+
   for( var i = 0; i < clients.length; i++){
-    if(clients[i].cmid == query || (typeof query == "string" && isSubstring(clients[i].cmid, query))){
+    if(clients[i].CMID == query || (typeof query == "string" && isSubstring(clients[i].CMID, query))){
       return clients[i];
     }
-    console.log(clients[i]);
-    if(isSubstring(clients[i].company,query) || clients[i].company == query ){
+    if(isSubstring(clients[i].COMPANY,query) || clients[i].COMPANY == query ){
       return clients[i];
     }
   }
@@ -64,24 +65,27 @@ var authorize = function(req, res, next){
 /* global clients */
 clients = [];
 
-fs.readFile('data.csv', 'utf8', function (err,data) {
-  console.log(data);
-  if (err) {
-    return console.log(err);
-  }
-  data = data.split(',|');
-  for( var i = 0; i < data.length; i++){
-    data[i] = data[i].split(',');
-    if(data[i][1] == undefined) break;
-    clients.push({
-      cmid:data[i][0].trim(),
-      company: data[i][1].trim(),
-      urgency: data[i][3].trim(),
-      comments: data[i][4].trim(),
-      region: data[i][2].trim()
-    });
-  }
-});
+
+var sheets = ["Queue","ASIA","AMERS","EMEA"];
+
+for( var i = 0; i < sheets.length ; i++){
+  xlsxj({
+    input: "SPP_NOTES.xlsx", 
+    output: null,
+    sheet: sheets[i]
+  }, function(err, result) {
+    if(err) {
+      console.error(err);
+    }else {
+      console.log(result);
+      clients.concat(result);
+    }
+  });
+}
+  
+
+
+
 
 // for plugins ajax requests
 app.use(function(req, res, next) {
@@ -125,6 +129,46 @@ app.put('/items/:id',jsonParser,function(req,res){
 // 	return storage.items[parseInt(req.body.id)];
 });
 
+
+
+
+app.get('/upload',function(req, res, next){
+  return res.render('upload');
+});
+ 
+app.post('/upload', function(req, res) {
+	var sampleFile;
+ 
+	if (!req.files) {
+		res.send('No files were uploaded.');
+		return;
+	}
+ 
+	sampleFile = req.files.sampleFile;
+	sampleFile.mv('./SPP_NOTES.xlsx', function(err) {
+		if (err) {
+			res.status(500).send(err);
+		}
+		else {
+		  for( var i = 0; i < sheets.length ; i++){
+        xlsxj({
+          input: "SPP_NOTES.xlsx", 
+          output: null,
+          sheet: sheets[i]
+        }, function(err, result) {
+          if(err) {
+            console.error(err);
+          }else {
+            console.log(result);
+            clients.concat(result);
+          }
+        });
+      }
+  
+			return res.send('File uploaded!');
+		}
+	});
+});
 
 
 app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
