@@ -77,12 +77,12 @@ for( var i = 0; i < sheets.length ; i++){
     if(err) {
       console.error(err);
     }else {
-      console.log(result);
-      clients.concat(result);
+      
+      clients = clients.concat(result);
     }
   });
 }
-  
+console.log(clients);
 
 
 
