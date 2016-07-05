@@ -30,7 +30,7 @@ function getClient(query, clients){
     if(clients[i].CMID == query || (typeof query == "string" && isSubstring(clients[i].CMID, query))){
       return clients[i];
     }
-    if(isSubstring(clients[i].COMPANY,query) || clients[i].COMPANY == query ){
+    if(isSubstring(clients[i].COMPANY.toLowerCase(),query.toLowerCase()) || clients[i].COMPANY.toLowerCase() == query.toLowerCase() ){
       return clients[i];
     }
   }
