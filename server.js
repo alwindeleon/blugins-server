@@ -25,7 +25,7 @@ db.on('error', function () {
 function getClient(query, clients){
   console.log(query);
   for( var i = 0; i < clients.length; i++){
-    if(clients[i].cmid == query){
+    if(clients[i].cmid == query || (typeof query == "string" && isSubstring(clients[i].cmid, query))){
       return clients[i];
     }
     console.log(clients[i]);

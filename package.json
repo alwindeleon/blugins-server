@@ -14,7 +14,8 @@
     "jade": "^1.11.0",
     "mongoose": "^4.5.2",
     "path": "^0.12.7",
-    "socket.io": "~0.9.14"
+    "socket.io": "~0.9.14",
+    "xlsx-to-json": "^0.2.4"
   },
   "scripts": {
     "start": "node server.js"
