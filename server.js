@@ -17,11 +17,11 @@ var fileUpload = require('express-fileupload');
 app.use(cookieParser('55555'));
 app.use(expressSession({secret:'55555'}));
 app.use(fileUpload());
-// mongoose.connect(dbpath);
-// var db = mongoose.connection;
-// db.on('error', function () {
-//   throw new Error('unable to connect to database at ' + dbpath);
-// });//
+mongoose.connect(dbpath);
+var db = mongoose.connection;
+db.on('error', function () {
+  throw new Error('unable to connect to database at ' + dbpath);
+});//
 
 // helper functions
 function getClient(query, clients){
@@ -92,13 +92,13 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
 app.use(express.static('client'));
-
 app.set("view engine", 'jade');
 app.set("views", path.join(__dirname,"views"));
 app.use(express.static('./client'));
 
+
+// NOTES PLUGIN ENDPOINTS
 app.get('/clients/:query',function(req, res){
     var currentClient = getClient(req.params.query, clients);
     if(currentClient != null){
@@ -108,28 +108,6 @@ app.get('/clients/:query',function(req, res){
       return res.jsonp({message:"no matches"});
     }
 });
-
-app.delete('/items/:id',function(req,res){
-// 	return res.json(storage.remove(id)[0]);
-});
-
-app.get('/', function(req, res) {
-    // res.json(storage.items);
-    return res.render('login');
-});
-
-app.post('/items', jsonParser, function(req, res) {
-
-    // res.status(201).json(item);
-});
-
-app.put('/items/:id',jsonParser,function(req,res){
-
-// 	return storage.items[parseInt(req.body.id)];
-});
-
-
-
 
 app.get('/upload',function(req, res, next){
   return res.render('upload');
@@ -168,6 +146,28 @@ app.post('/upload', function(req, res) {
 		}
 	});
 });
+
+
+// TASK TRACKER ENDPOINTS
+app.get('/', function(req, res) {
+    // res.json(storage.items);
+    return res.render('login');
+});
+
+app.post('/login',function(req, res){
+  var username = req.body.username;
+  var password = req.body.password;
+  
+  Member.findOne({username:username,password:password}, function(err, user){
+      if(err) return res.send(err);
+      if(user == null){
+        return res.jsonp({status:false});
+      }
+      return res.jsonp({username:user.username,name:user.name,status:true});
+  });
+});
+
+
 
 
 app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
