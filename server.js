@@ -155,16 +155,20 @@ app.get('/', function(req, res) {
 });
 
 app.post('/login',function(req, res){
+  console.log(req.body);
   var username = req.body.username;
   var password = req.body.password;
-  
+  console.log("IN");
   Member.findOne({username:username,password:password}, function(err, user){
       if(err) {
+        console.log("IN1")
         return res.jsonp({status:false});
       }
       if(user == null){
+        console.log("IN2");
         return res.jsonp({status:false});
       }
+      console.log("IN3");
       return res.jsonp({username:user.username,name:user.name,status:true});
   });
 });
