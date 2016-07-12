@@ -161,7 +161,7 @@ app.post('/login',function(req, res){
   Member.findOne({username:username,password:password}, function(err, user){
       if(err) return res.send(err);
       if(user == null){
-        return res.jsonp({status:false});
+        return res.jsonp(JSON.stringify({status:false}));
       }
       return res.jsonp({username:user.username,name:user.name,status:true});
   });
