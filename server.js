@@ -159,9 +159,11 @@ app.post('/login',function(req, res){
   var password = req.body.password;
   
   Member.findOne({username:username,password:password}, function(err, user){
-      if(err) return res.send(err);
+      if(err) {
+        return res.jsonp({status:false});
+      }
       if(user == null){
-        return res.jsonp(JSON.stringify({status:false}));
+        return res.jsonp({status:false});
       }
       return res.jsonp({username:user.username,name:user.name,status:true});
   });
