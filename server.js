@@ -154,7 +154,7 @@ app.get('/', function(req, res) {
     return res.render('login');
 });
 
-app.post('/login',function(req, res){
+app.post('/login',jsonParser,function(req, res){
   console.log(req.body);
   var username = req.body.username;
   var password = req.body.password;
