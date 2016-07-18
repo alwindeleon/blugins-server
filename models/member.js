@@ -1,12 +1,19 @@
 var mongoose = require('mongoose'),
-  Task = require('./task'),
   Schema = mongoose.Schema;
 
 var MemberSchema = new Schema({
   name: String,
   username: String,
   password: String,
-  tasksDone: [Task]
+  tasksDone: [
+      {
+        subject: String,
+        typeOfActivity: String,
+        timeToFinish: Number,
+        volume: Number,
+        date: Date
+      }
+    ]
 });
 
 

@@ -9,7 +9,6 @@ var dbpath =  process.env.MONGODB_URI || 'mongodb://localhost/workflow-developme
 var cookieParser = require("cookie-parser");
 var expressSession = require("express-session");
 var Member = require('./models/member');
-var Task = require('./models/task');
 var xlsxj = require("xlsx-to-json");
 var fileUpload = require('express-fileupload');
 
@@ -149,9 +148,12 @@ app.post('/upload', function(req, res) {
 
 
 // TASK TRACKER ENDPOINTS
+//type of tasks -
+var typeOfActivity = ["Website Update", "Fulfillment Client Email", "Client Call","Corporate Governance Hotline","Fulfillment SR Query","Request Cancel Quote","Billing Issue Investigation"];
+var timeItTook = [60,30,15,30,60,60,60];
 app.get('/', function(req, res) {
     // res.json(storage.items);
-    return res.render('login');
+    return res.render('dashboard');
 });
 
 app.post('/login',jsonParser,function(req, res){
@@ -171,6 +173,35 @@ app.post('/login',jsonParser,function(req, res){
       console.log("IN3");
       return res.jsonp({username:user.username,name:user.name,status:true});
   });
+});
+
+app.post('/tasks/record',jsonParser,function(req, res){
+  console.log(req.body);
+  console.log(req.body.subject);
+  console.log(req.body.type);
+  console.log("IN");
+  Member.findOne({username:req.body.username}, function(err, user){
+      user.tasksDone.push({
+        subject:req.body.subject,
+        volume:req.body.volume,
+        type: req.body.type,
+        date: new Date()
+      });
+      if(err) {
+        console.log("IN1")
+        return res.jsonp({success:false});
+      }
+      if(user == null){
+        console.log("IN2");
+        return res.jsonp({success:false});
+      }
+      console.log("IN3");
+      return res.jsonp({success:true});
+  });
+});
+
+app.get('/dashboard/:day', function(req, res, next) {
+  Task.find({});
 });
 
 
