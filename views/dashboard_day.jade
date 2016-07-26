@@ -1,0 +1,50 @@
+html
+    head
+        link(rel="stylesheet",type="text/css",href="/css/bootstrap.min.css")
+        link(rel="stylesheet",type="text/css",href="/css/login.css")
+        script(src='https://code.jquery.com/jquery-2.2.4.min.js')
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
+        script(src='https://code.highcharts.com/highcharts.js')
+        script(src='https://code.highcharts.com/modules/exporting.js')
+        
+        script(type='text/javascript').
+            var numTasksPerHour =!{JSON.stringify(numTasksPerHour)}
+            var ron =!{JSON.stringify(ron)}
+            var jc =!{JSON.stringify(jc)}
+            var joen =!{JSON.stringify(joen)}
+            var blu = !{JSON.stringify(blu)}
+            var ronTotal = !{JSON.stringify(ronTotal)}
+            var jcTotal = !{JSON.stringify(jcTotal)}
+            var joenTotal =!{JSON.stringify(joenTotal)}
+            var bluTotal = !{JSON.stringify(bluTotal)}
+            var ronType = !{JSON.stringify(ronType)}
+            var jcType = !{JSON.stringify(jcType)}
+            var joenType = !{JSON.stringify(joenType)}
+        script(src='/js/dashboard_day.js')
+
+            
+
+    body
+        nav.navbar.navbar-inverse
+            .container-fluid
+                .navbar-header
+                  a.navbar-brand(href='#') Blugins
+        .row
+            .col-lg-3.col-lg-offset-3
+        .row
+            .col-lg-6.col-lg-offset-3
+                .row
+                    #container1(style='min-width: 310px; height: 400px; margin: 0 auto')
+                .row
+                    #container2(style='min-width: 310px; height: 400px; margin: 0 auto')
+                .row
+                    #container3(style='min-width: 310px; height: 400px; margin: 0 auto')
+                .row
+                    #container4(style='min-width: 310px; height: 400px; margin: 0 auto')
+             
+                   
+        .row
+            .col-lg-2.col-lg-offset-3.push-top
+                if status
+                    a.btn.btn-info(href="/dashboard/month/"+month)   View Monthly Result
+                

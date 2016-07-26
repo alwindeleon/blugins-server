@@ -8,7 +8,7 @@ var MemberSchema = new Schema({
   tasksDone: [
       {
         subject: String,
-        typeOfActivity: String,
+        typeOfActivity: Number,
         timeToFinish: Number,
         volume: Number,
         date: Date

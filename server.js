@@ -16,6 +16,16 @@ var fileUpload = require('express-fileupload');
 app.use(cookieParser('55555'));
 app.use(expressSession({secret:'55555'}));
 app.use(fileUpload());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+app.use(express.static('/client'));
+app.set("view engine", 'jade');
+app.set("views", path.join(__dirname,"views"));
+app.use(express.static(__dirname+"/client"));
+
 mongoose.connect(dbpath);
 var db = mongoose.connection;
 db.on('error', function () {
@@ -39,6 +49,8 @@ function getClient(query, clients){
 function isSubstring(mstr, substr){
   return mstr.indexOf(substr) > -1;
 }
+
+
 
 if(typeof(String.prototype.trim) === "undefined")
 {
@@ -64,6 +76,9 @@ var authorize = function(req, res, next){
 /* global clients */
 clients = [];
 
+var monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
 
 var sheets = ["Queue","ASIA","AMERS","EMEA"];
 
@@ -86,15 +101,6 @@ for( var i = 0; i < sheets.length ; i++){
 
 
 // for plugins ajax requests
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-app.use(express.static('client'));
-app.set("view engine", 'jade');
-app.set("views", path.join(__dirname,"views"));
-app.use(express.static('./client'));
 
 
 // NOTES PLUGIN ENDPOINTS
@@ -153,7 +159,14 @@ var typeOfActivity = ["Website Update", "Fulfillment Client Email", "Client Call
 var timeItTook = [60,30,15,30,60,60,60];
 app.get('/', function(req, res) {
     // res.json(storage.items);
-    return res.render('dashboard');
+    
+    
+    return res.render('login');
+});
+
+app.get('/dashboard', function(req, res) {
+    var d = new Date();
+    return res.render('dashboard',{month:monthNames[d.getMonth()], year: d.getFullYear()});
 });
 
 app.post('/login',jsonParser,function(req, res){
@@ -201,10 +214,131 @@ app.post('/tasks/record',jsonParser,function(req, res){
 });
 
 app.get('/dashboard/:day', function(req, res, next) {
-  Task.find({});
+    function add(a, b){
+      return a+b;
+    }
+    var numTasksPerHour = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var ron = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var jc = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var joen = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var blu = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var jcType =[0,0,0,0,0,0,0];
+    var ronType = [0,0,0,0,0,0,0];
+    var joenType = [0,0,0,0,0,0,0];
+    var tasks = [];
+    Member.find({},function(err, users){
+      if(err) console.log(err);
+      for(var i = 0 ; i < users.length; i++){
+        tasks = tasks.concat(users[i].tasksDone);
+      }
+      var dateToday = new Date();
+      for(var i = 0; i < tasks.length; i++){
+
+        if( tasks[i].date.getMonth() == dateToday.getMonth() && tasks[i].date.getDate() == req.params.day){
+          console.log(tasks[i].date)
+          console.log("IN");
+          numTasksPerHour[tasks[i].date.getHours()-1]++;
+        }
+      }
+      for(var i = 0; i < users.length ; i++ ){
+        if(users[i].username == "johncarlo"){
+          for(var j = 0; j < users[i].tasksDone.length ; j++){
+            if( users[i].tasksDone[j].date.getMonth() == dateToday.getMonth() && users[i].tasksDone[j].date.getDate() == req.params.day){
+              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              jc[hour]++;
+              jcType[users[i].tasksDone[j].typeOfActivity]++;
+            }
+            
+          }
+        }else  if(users[i].username == "jo-en"){
+          for(var j = 0; j < users[i].tasksDone.length ; j++){
+            if( users[i].tasksDone[j].date.getMonth() == dateToday.getMonth() && users[i].tasksDone[j].date.getDate() == req.params.day){
+              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              joen[hour]++;
+              joenType[users[i].tasksDone[j].typeOfActivity]++;
+            }
+            
+          }
+        }else  if(users[i].username == "ronryan"){
+          for(var j = 0; j < users[i].tasksDone.length ; j++){
+            if( users[i].tasksDone[j].date.getMonth() == dateToday.getMonth() && users[i].tasksDone[j].date.getDate() == req.params.day){
+              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              ron[hour]++;
+              ronType[users[i].tasksDone[j].typeOfActivity]++;
+            }
+            
+          }
+        }
+      }
+      var month = dateToday.getMonth();
+      return res.render('dashboard_day',{status:true,month:month,ronType: ronType, jcType:jcType, joenType:joenType,numTasksPerHour: numTasksPerHour,ron: ron, joen:joen, jc:jc,blu:blu,ronTotal: ron.reduce(add), joenTotal: joen.reduce(add),jcTotal: jc.reduce(add),bluTotal:0});
+     });
+    
+  
 });
 
+app.get('/dashboard/month/:month',function(req, res){
+  function add(a, b){
+      return a+b;
+    }
+    var numTasksPerHour = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var ron = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var jc = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var joen = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var blu = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var jcType =[0,0,0,0,0,0,0];
+    var ronType = [0,0,0,0,0,0,0];
+    var joenType = [0,0,0,0,0,0,0];
+    var tasks = [];
+    var dateToday = new Date();
+    Member.find({},function(err, users){
+      if(err) console.log(err);
+      for(var i = 0 ; i < users.length; i++){
+        tasks = tasks.concat(users[i].tasksDone);
+      }
+      var dateToday = new Date();
+      for(var i = 0; i < tasks.length; i++){
 
+        if( tasks[i].date.getMonth() == req.params.month ){
+          console.log(tasks[i].date)
+          console.log("IN");
+          numTasksPerHour[tasks[i].date.getHours()-1]++;
+        }
+      }
+      for(var i = 0; i < users.length ; i++ ){
+        if(users[i].username == "johncarlo"){
+          for(var j = 0; j < users[i].tasksDone.length ; j++){
+            if( users[i].tasksDone[j].date.getMonth() == req.params.month){
+              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              jc[hour]++;
+              jcType[users[i].tasksDone[j].typeOfActivity]++;
+            }
+            
+          }
+        }else  if(users[i].username == "jo-en"){
+          for(var j = 0; j < users[i].tasksDone.length ; j++){
+            if(  users[i].tasksDone[j].date.getMonth() == req.params.month ){
+              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              joen[hour]++;
+              joenType[users[i].tasksDone[j].typeOfActivity]++;
+            }
+            
+          }
+        }else  if(users[i].username == "ronryan"){
+          for(var j = 0; j < users[i].tasksDone.length ; j++){
+            if(  users[i].tasksDone[j].date.getMonth() == req.params.month){
+              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              ron[hour]++;
+              ronType[users[i].tasksDone[j].typeOfActivity]++;
+            }
+            
+          }
+        }
+      }
+    
+      return res.render('dashboard_day',{status:false,ronType: ronType, jcType:jcType, joenType:joenType,numTasksPerHour: numTasksPerHour,ron: ron, joen:joen, jc:jc,blu:blu,ronTotal: ron.reduce(add), joenTotal: joen.reduce(add),jcTotal: jc.reduce(add),bluTotal:0});
+     });
+});
 
 
 app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){

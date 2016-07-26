@@ -20,62 +20,21 @@ html
         .row
             .col-lg-6.col-lg-offset-3
                 .jumbotron
-                    h1.text-center Month, Year
+                    h1.text-center=month +' of '+year
                 .row
                     .col-lg-3
                         h4 Days:
                 .grid
-                    .grid-item
-                        .grid-item-content
-                            asdasdasdas
-                    .grid-item
-                        .grid-item-content 2
-                    .grid-item
-                        .grid-item-content 3
-                    .grid-item
-                        .grid-item-content 4
-                    .grid-item
-                        .grid-item-content 5
-                    .grid-item
-                        .grid-item-content 6
-                    .grid-item
-                        .grid-item-content 7
-                    .grid-item
-                        .grid-item-content 8
-                    .grid-item
-                        .grid-item-content 9
-                    .grid-item
-                        .grid-item-content 10
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
-                    .grid-item
-                        .grid-item-content
+                    
+                    - for (var i = 1; i < 32; ++i) {
+                        .grid-item
+                            .grid-item-content 
+                                a(href="/dashboard/"+i)
+                                    h4.item=i
+                    - }
+                        
+                    
+                   
         .row
             .col-lg-2.col-lg-offset-3.push-top
                 a.btn.btn-info(href="#")   View Monthly Result

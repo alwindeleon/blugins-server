@@ -26,7 +26,7 @@ body { font-family: sans-serif; }
 .grid-item-content {
   width: 100% !important;
   height: 120px;
-  background: #D26;
+  background: #EEE;
   border: 2px solid #333;
   border-color: hsla(0, 0%, 0%, 0.5);
   border-radius: 5px;
@@ -36,7 +36,7 @@ body { font-family: sans-serif; }
 
 .grid-item:hover .grid-item-content {
   border-color: white;
-  background: #A2C;
+  background: #CCC;
   cursor: pointer;
 }
 
@@ -58,4 +58,9 @@ body { font-family: sans-serif; }
 .push-top {
     margin-top: 25px;
     margin-bottom: 25px;
+}
+
+h4.item {
+  text-align:center;
+  margin-top: 45%;
 }
