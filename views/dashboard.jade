@@ -6,8 +6,17 @@ html
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js")
         script(src="./js/masonry.js")
         link(rel="stylesheet",type="text/css",href="./css/masonry.css")
-
-
+        
+        script.
+            $(function () {
+                $('#btn-range').click(function(){
+                    console.log("IN");
+                    var from = $('#from').val();
+                    var to = $('#to').val();
+                    window.location.replace("http://blugins.herokuapp.com/dashboard/range/"+from+'-'+to);
+                });
+            });
+             
             
 
     body
@@ -34,7 +43,20 @@ html
                     - }
                         
                     
-                   
+        .row
+            .col-lg-2.col-lg-offset-3.push-top
+                .row.form-group
+                    .col-lg-6.has-warning
+                        label.control-label(for='inputWarning') From
+                        input#from.form-control(type='text')
+                    .col-lg-6.has-warning
+                        label.control-label(for='inputError') To
+                        input#to.form-control(type='text')
+                .row
+                    .col-lg-12
+                        button.btn.btn-primary#btn-range    Go
+                            
+
         .row
             .col-lg-2.col-lg-offset-3.push-top
                 a.btn.btn-info(href="#")   View Monthly Result
