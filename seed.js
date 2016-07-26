@@ -1,8 +1,8 @@
 var seeder = require('mongoose-seed');
  
 // Connect to MongoDB via Mongoose 
-// seeder.connect('mongodb://heroku_d9ck50r0:6vmdtv0paosgg172farmmdgssn@ds011735.mlab.com:11735/heroku_d9ck50r0', function() {
-seeder.connect('mongodb://localhost/workflow-development', function() {	
+seeder.connect('mongodb://heroku_d9ck50r0:6vmdtv0paosgg172farmmdgssn@ds011735.mlab.com:11735/heroku_d9ck50r0', function() {
+// seeder.connect('mongodb://localhost/workflow-development', function() {	
 	// Load Mongoose models 
 	seeder.loadModels([
 		'models/member.js'

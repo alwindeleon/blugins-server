@@ -200,16 +200,18 @@ app.post('/tasks/record',jsonParser,function(req, res){
         type: req.body.type,
         date: new Date()
       });
-      if(err) {
-        console.log("IN1")
-        return res.jsonp({success:false});
-      }
-      if(user == null){
-        console.log("IN2");
-        return res.jsonp({success:false});
-      }
-      console.log("IN3");
-      return res.jsonp({success:true});
+      user.save(function(err){
+         if(err) {
+          console.log("IN1")
+          return res.jsonp({success:false});
+        }
+        if(user == null){
+          console.log("IN2");
+          return res.jsonp({success:false});
+        }
+        console.log("IN3");
+        return res.jsonp({success:true});
+        })
   });
 });
 
