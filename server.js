@@ -197,7 +197,7 @@ app.post('/tasks/record',jsonParser,function(req, res){
       user.tasksDone.push({
         subject:req.body.subject,
         volume:req.body.volume,
-        type: req.body.type,
+        typeOfActivity: parseInt(req.body.type),
         date: new Date()
       });
       user.save(function(err){
@@ -233,6 +233,7 @@ app.get('/dashboard/:day', function(req, res, next) {
       for(var i = 0 ; i < users.length; i++){
         tasks = tasks.concat(users[i].tasksDone);
       }
+      // first graph
       var dateToday = new Date();
       for(var i = 0; i < tasks.length; i++){
 
@@ -242,6 +243,7 @@ app.get('/dashboard/:day', function(req, res, next) {
           numTasksPerHour[tasks[i].date.getHours()]++;
         }
       }
+      // second graph and 4th graph
       for(var i = 0; i < users.length ; i++ ){
         if(users[i].username == "johncarlo"){
           for(var j = 0; j < users[i].tasksDone.length ; j++){
