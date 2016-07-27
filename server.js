@@ -220,7 +220,7 @@ app.get('/dashboard/:day', function(req, res, next) {
       return a+b;
     }
     var numTasksPerHour = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-    var ron = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    var ron =             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     var jc = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     var joen = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     var blu = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -239,7 +239,7 @@ app.get('/dashboard/:day', function(req, res, next) {
         if( tasks[i].date.getMonth() == dateToday.getMonth() && tasks[i].date.getDate() == req.params.day){
           console.log(tasks[i].date)
           console.log("IN");
-          numTasksPerHour[tasks[i].date.getHours()-1]++;
+          numTasksPerHour[tasks[i].date.getHours()]++;
         }
       }
       for(var i = 0; i < users.length ; i++ ){
