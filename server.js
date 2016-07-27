@@ -246,7 +246,7 @@ app.get('/dashboard/:day', function(req, res, next) {
         if(users[i].username == "johncarlo"){
           for(var j = 0; j < users[i].tasksDone.length ; j++){
             if( users[i].tasksDone[j].date.getMonth() == dateToday.getMonth() && users[i].tasksDone[j].date.getDate() == req.params.day){
-              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              var hour =  users[i].tasksDone[j].date.getHours();
               jc[hour]++;
               jcType[users[i].tasksDone[j].typeOfActivity]++;
             }
@@ -255,7 +255,7 @@ app.get('/dashboard/:day', function(req, res, next) {
         }else  if(users[i].username == "jo-en"){
           for(var j = 0; j < users[i].tasksDone.length ; j++){
             if( users[i].tasksDone[j].date.getMonth() == dateToday.getMonth() && users[i].tasksDone[j].date.getDate() == req.params.day){
-              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              var hour =  users[i].tasksDone[j].date.getHours();
               joen[hour]++;
               joenType[users[i].tasksDone[j].typeOfActivity]++;
             }
@@ -264,7 +264,7 @@ app.get('/dashboard/:day', function(req, res, next) {
         }else  if(users[i].username == "ronryan"){
           for(var j = 0; j < users[i].tasksDone.length ; j++){
             if( users[i].tasksDone[j].date.getMonth() == dateToday.getMonth() && users[i].tasksDone[j].date.getDate() == req.params.day){
-              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              var hour =  users[i].tasksDone[j].date.getHours();
               ron[hour]++;
               ronType[users[i].tasksDone[j].typeOfActivity]++;
             }
@@ -304,14 +304,14 @@ app.get('/dashboard/month/:month',function(req, res){
         if( tasks[i].date.getMonth() == req.params.month ){
           console.log(tasks[i].date)
           console.log("IN");
-          numTasksPerHour[tasks[i].date.getHours()-1]++;
+          numTasksPerHour[tasks[i].date.getHours()]++;
         }
       }
       for(var i = 0; i < users.length ; i++ ){
         if(users[i].username == "johncarlo"){
           for(var j = 0; j < users[i].tasksDone.length ; j++){
             if( users[i].tasksDone[j].date.getMonth() == req.params.month){
-              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              var hour =  users[i].tasksDone[j].date.getHours();
               jc[hour]++;
               jcType[users[i].tasksDone[j].typeOfActivity]++;
             }
@@ -320,7 +320,7 @@ app.get('/dashboard/month/:month',function(req, res){
         }else  if(users[i].username == "jo-en"){
           for(var j = 0; j < users[i].tasksDone.length ; j++){
             if(  users[i].tasksDone[j].date.getMonth() == req.params.month ){
-              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              var hour =  users[i].tasksDone[j].date.getHours();
               joen[hour]++;
               joenType[users[i].tasksDone[j].typeOfActivity]++;
             }
@@ -329,7 +329,7 @@ app.get('/dashboard/month/:month',function(req, res){
         }else  if(users[i].username == "ronryan"){
           for(var j = 0; j < users[i].tasksDone.length ; j++){
             if(  users[i].tasksDone[j].date.getMonth() == req.params.month){
-              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              var hour =  users[i].tasksDone[j].date.getHours();
               ron[hour]++;
               ronType[users[i].tasksDone[j].typeOfActivity]++;
             }
@@ -373,14 +373,14 @@ app.get('/dashboard/range/:range',function(req, res){
         if( tasks[i].date.getMonth() == dateToday.getMonth() && isInRange(from,to, tasks[i].date.getDate()) ){
           console.log(tasks[i].date)
           console.log("IN");
-          numTasksPerHour[tasks[i].date.getHours()-1]++;
+          numTasksPerHour[tasks[i].date.getHours()]++;
         }
       }
       for(var i = 0; i < users.length ; i++ ){
         if(users[i].username == "johncarlo"){
           for(var j = 0; j < users[i].tasksDone.length ; j++){
             if( users[i].tasksDone[j].date.getMonth() == dateToday.getMonth() && isInRange(from, to,users[i].tasksDone[j].date.getDate() )){
-              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              var hour =  users[i].tasksDone[j].date.getHours();
               jc[hour]++;
               jcType[users[i].tasksDone[j].typeOfActivity]++;
             }
@@ -389,7 +389,7 @@ app.get('/dashboard/range/:range',function(req, res){
         }else  if(users[i].username == "jo-en"){
           for(var j = 0; j < users[i].tasksDone.length ; j++){
             if( users[i].tasksDone[j].date.getMonth() == dateToday.getMonth() && isInRange(from, to,users[i].tasksDone[j].date.getDate() )){
-              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              var hour =  users[i].tasksDone[j].date.getHours();
               joen[hour]++;
               joenType[users[i].tasksDone[j].typeOfActivity]++;
             }
@@ -398,7 +398,7 @@ app.get('/dashboard/range/:range',function(req, res){
         }else  if(users[i].username == "ronryan"){
           for(var j = 0; j < users[i].tasksDone.length ; j++){
             if( users[i].tasksDone[j].date.getMonth() == dateToday.getMonth() && isInRange(from, to,users[i].tasksDone[j].date.getDate() )){
-              var hour =  users[i].tasksDone[j].date.getHours()-1;
+              var hour =  users[i].tasksDone[j].date.getHours();
               ron[hour]++;
               ronType[users[i].tasksDone[j].typeOfActivity]++;
             }
