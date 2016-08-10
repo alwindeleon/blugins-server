@@ -27,41 +27,7 @@ var data = [
 				'password': '123',
 				'username': 'alwin',
 				'tasksDone': [
-					{
-						'subject': "Test 1",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 2",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 3",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 4",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 5",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					}
+				
 				]
 			},
 			{
@@ -69,147 +35,30 @@ var data = [
 				'password': '123',
 				'username': 'archie',
 				'tasksDone':[
-					{
-						'subject': "Test 1",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 2",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 3",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 4",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 5",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					}
+					
 				]
 			},
 			{
 				'name': 'Jo-en',
-				'password': '123',
+				'password': 'secure123',
 				'username': 'jo-en',
 				'tasksDone':[
-					{
-						'subject': "Test 1",
-				        'typeOfActivity': 2,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 2",
-				        'typeOfActivity': 4,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 3",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 4",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 5",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					}
+				
 				]
 			},
 			{
 				'name': 'Ronryan',
-				'password': '123',
+				'password': 'secure123',
 				'username': 'ronryan',
 				'tasksDone':[
-					
-					{
-						'subject': "Test 2",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 3",
-				        'typeOfActivity': 1,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 4",
-				        'typeOfActivity': 3,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 5",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					}
 				]
 			},
 			{
 				'name': 'John Carlo',
-				'password': '123',
+				'password': 'secure123',
 				'username': 'johncarlo',
 				'tasksDone':[
-					{
-						'subject': "Test 1",
-				        'typeOfActivity': 2,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 2",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					},
-					{
-						'subject': "Test 3",
-				        'typeOfActivity': 0,
-				        'timeToFinish': 60,
-				        'volume': 1,
-				        'date': new Date()
-					}
+					
 				]
 			}
 		]

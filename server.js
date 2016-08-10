@@ -9,6 +9,7 @@ var dbpath =  process.env.MONGODB_URI || 'mongodb://localhost/workflow-developme
 var cookieParser = require("cookie-parser");
 var expressSession = require("express-session");
 var Member = require('./models/member');
+var Client = require('./models/client');
 var xlsxj = require("xlsx-to-json");
 var fileUpload = require('express-fileupload');
 
